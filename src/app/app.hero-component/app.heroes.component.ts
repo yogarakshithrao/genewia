@@ -8,8 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-heroes',
   templateUrl: './app.hero-component.tpl.html',
-  styleUrls: ['./app.hero-component.css'],
-  providers: []
+  styleUrls: ['./app.hero-component.css']
 })
 export class HeroesComponent implements OnInit {
 
@@ -19,12 +18,12 @@ export class HeroesComponent implements OnInit {
     private router: Router,
     private heroService: HeroService) { }
 
-  getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes);
+  ngOnInit() {
+    this.getHeroes();
   }
 
-  ngOnInit(): void {
-    this.getHeroes();
+  getHeroes(): void {
+    this.heroService.getHeroes()
+    .subscribe(heroes => this.heroes = heroes);
   }
 }

@@ -1,38 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { HeroService } from '../app.hero.service';
 import { Hero } from '../app.hero';
-
-import 'rxjs/add/operator/switchMap';
+import { HeroService } from '../app.hero.service';
 
 @Component({
-    selector: 'app-hero-detail',
-    templateUrl: './app.hero-detail.component.tpl.html',
-    styleUrls: ['./app.hero-detail.component.css'],
+  selector: 'app-hero-detail',
+  templateUrl: './app.hero-detail.component.tpl.html',
+  styleUrls: [ './app.hero-detail.component.css' ]
 })
-
 export class HeroDetailComponent implements OnInit {
-    constructor(
-        private route: ActivatedRoute,
-        private location: Location,
-        private heroService: HeroService,
-    ) { }
+  @Input() hero: Hero;
 
-    @Input() hero: Hero;
+  constructor(
+    private route: ActivatedRoute,
+    private heroService: HeroService,
+    private location: Location
+  ) {}
 
-    ngOnInit(): void {
-        this.getHero();
-    }
+  ngOnInit(): void {
+    this.getHero();
+  }
 
-    getHero(): void {
-        const id = +this.route.snapshot.paramMap.get('id');
-        this.heroService.getHero(id)
-            .subscribe(hero => this.hero = hero);
-    }
+  getHero(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.heroService.getHero(id)
+      .subscribe(hero => this.hero = hero);
+  }
 
-    goBack(): void {
-        this.location.back();
-    }
+  goBack(): void {
+    this.location.back();
+  }
 }
